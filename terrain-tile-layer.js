@@ -3,7 +3,7 @@ import {COORDINATE_SYSTEM} from '@deck.gl/core';
 import {load} from '@loaders.gl/core';
 import {TerrainLoader} from '@loaders.gl/terrain';
 import {TileLayer} from '@deck.gl/geo-layers';
-import {TERRAIN_IMAGE, NAIP_IMAGE, SURFACE_IMAGE, ELEVATION_DECODER} from './util';
+import {TERRAIN_IMAGE, NAIP_IMAGE, SURFACE_IMAGE, ELEVATION_DECODER, MAPBOX_SATELLITE} from './util';
 import {GeoJsonLayer} from '@deck.gl/layers';
 import {MVTLoader} from '@loaders.gl/mvt';
 import {Matrix4} from 'math.gl';
@@ -19,15 +19,18 @@ function getTerrainUrl({x, y, z}) {
 }
 
 function getTextureUrl({x, y, z}) {
-  if (z >= 12) {
-    return NAIP_IMAGE.replace('{x}', x)
-      .replace('{y}', y)
-      .replace('{z}', z);
-  }
-
-  return SURFACE_IMAGE.replace('{x}', x)
+  return MAPBOX_SATELLITE.replace('{x}', x)
     .replace('{y}', y)
     .replace('{z}', z);
+  // if (z >= 12) {
+  //   return NAIP_IMAGE.replace('{x}', x)
+  //     .replace('{y}', y)
+  //     .replace('{z}', z);
+  // }
+  //
+  // return SURFACE_IMAGE.replace('{x}', x)
+  //   .replace('{y}', y)
+  //   .replace('{z}', z);
 }
 
 function getOpenMapTilesUrl({x, y, z}) {

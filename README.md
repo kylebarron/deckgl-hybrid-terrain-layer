@@ -18,5 +18,6 @@ cd examples/website
 git clone https://github.com/kylebarron/deckgl-hybrid-terrain-layer
 cd deckgl-hybrid-terrain-layer
 npm install
+export MapboxAccessToken=...
 npm run start-local
 ```

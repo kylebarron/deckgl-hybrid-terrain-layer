@@ -15,6 +15,9 @@ export const NAIP_IMAGE =
   'https://naip-lambda.kylebarron.dev/4c4d507790e8afa837215677bd6f74f58711bfaf3e1d5f7226193e12/{z}/{x}/{y}@2x.jpg';
 export const SURFACE_IMAGE = landsatUrl();
 
+const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
+export const MAPBOX_SATELLITE = `https://api.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.jpg90?access_token=${MAPBOX_TOKEN}`
+
 export const ELEVATION_DECODER = {
   rScaler: 256,
   gScaler: 1,
