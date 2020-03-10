@@ -8,16 +8,10 @@
   },
   "dependencies": {
     "@kylebarron/snap-features-to-tin": "^0.1.0",
-    "@turf/helpers": "^6.1.4",
-    "@turf/invariant": "^6.1.2",
-    "add": "^2.0.6",
     "deck.gl": "^8.1.0-alpha.3",
-    "get-pixels": "^3.3.2",
-    "rbush": "^3.0.1",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-map-gl": "^5.0.0",
-    "yarn": "^1.22.4"
+    "react-map-gl": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
