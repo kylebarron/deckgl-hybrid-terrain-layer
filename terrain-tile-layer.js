@@ -47,7 +47,7 @@ export function TerrainTileLayer() {
   });
 }
 
-function getTileData({x, y, z, bbox}) {
+async function getTileData({x, y, z}) {
   const terrainUrl = getTerrainUrl({x, y, z});
   const textureUrl = getTextureUrl({x, y, z});
   const mvtUrl = getOpenMapTilesUrl({x, y, z});
@@ -71,21 +71,15 @@ function getTileData({x, y, z, bbox}) {
       load(textureUrl).catch(_ => null)
     : Promise.resolve(null);
 
-  const allData = Promise.all([terrain, texture, mvttile]);
-  return allData.then(data => {
-    const mesh = data[0];
-    const features = data[2];
-
-    // triples of position indices that make up the faces of the terrain
-    const indices = mesh.indices.value;
-    // x, y, z positions in space of each index
-    const positions = mesh.attributes.POSITION.value;
-    const snapBounds = [0, 0, 1, 1];
-
-    const newFeatures = snapFeatures({indices, positions, features, bounds: snapBounds});
-    return [mesh, data[1], newFeatures]
-  })
-
+  const data = await Promise.all([terrain, texture, mvttile]);
+  const mesh = data[0];
+  const newFeatures = snapFeatures({
+    indices: mesh.indices.value,
+    positions: mesh.attributes.POSITION.value,
+    features: data[2],
+    bounds: [0, 0, 1, 1]
+  });
+  return [mesh, data[1], newFeatures];
 }
 
 function renderSubLayers(props) {
@@ -105,7 +99,7 @@ function renderSubLayers(props) {
       lineWidthMinPixels: 5,
       coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
       modelMatrix: getModelMatrix(tile),
-      pickable: true,
+      pickable: true
     }),
     new SimpleMeshLayer(props, {
       // NOTE: currently you need to set each sublayer id so they don't conflict
