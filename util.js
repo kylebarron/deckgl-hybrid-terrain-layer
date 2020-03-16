@@ -5,14 +5,14 @@ export const landsatUrl = () => {
   };
   const searchParams = new URLSearchParams(params);
   let baseUrl =
-    'https://landsat-lambda.kylebarron.dev/tiles/e276a5acd25d7f2abc6c1233067628822d4de9c96b3c8977a168fee7/{z}/{x}/{y}@2x.png?';
+    'https://landsat-lambda.kylebarron.dev/tiles/e276a5acd25d7f2abc6c1233067628822d4de9c96b3c8977a168fee7/{z}/{x}/{y}.jpg?';
   baseUrl += searchParams.toString();
   return baseUrl;
 };
 
 export const TERRAIN_IMAGE = `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png`;
 export const NAIP_IMAGE =
-  'https://naip-lambda.kylebarron.dev/4c4d507790e8afa837215677bd6f74f58711bfaf3e1d5f7226193e12/{z}/{x}/{y}@2x.jpg';
+  'https://naip-lambda.kylebarron.dev/4c4d507790e8afa837215677bd6f74f58711bfaf3e1d5f7226193e12/{z}/{x}/{y}.jpg';
 export const SURFACE_IMAGE = landsatUrl();
 
 const MAPBOX_TOKEN = process.env.MapboxAccessToken; // eslint-disable-line
