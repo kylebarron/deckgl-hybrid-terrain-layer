@@ -57,7 +57,13 @@ async function getTileData({x, y, z}) {
   const bounds = [0, 1, 1, 0];
 
   // Load vector tile
-  const mvttile = load(mvtUrl, MVTLoader);
+  const mvtLoaderOptions = {
+    mvt: {
+      coordinates: 'local',
+      layerProperty: 'layerName',
+    }
+  }
+  const mvttile = load(mvtUrl, MVTLoader, mvtLoaderOptions);
   // Load terrain tile
   const terrain = loadTerrain({
     terrainImage: terrainUrl,
@@ -71,15 +77,17 @@ async function getTileData({x, y, z}) {
       load(textureUrl).catch(_ => null)
     : Promise.resolve(null);
 
-  const data = await Promise.all([terrain, texture, mvttile]);
-  const mesh = data[0];
+  const [mesh, mvtFeatures] = await Promise.all([terrain, mvttile])
   const newFeatures = snapFeatures({
     indices: mesh.indices.value,
     positions: mesh.attributes.POSITION.value,
-    features: data[2],
+    features: mvtFeatures,
     bounds: [0, 0, 1, 1]
   });
-  return [mesh, data[1], newFeatures];
+
+  // const data = await Promise.all([terrain, texture, mvttile]);
+  // return [mesh, data[1], newFeatures];
+  return Promise.all([mesh, texture, newFeatures])
 }
 
 function renderSubLayers(props) {
