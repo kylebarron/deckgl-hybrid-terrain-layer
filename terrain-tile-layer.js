@@ -142,7 +142,7 @@ function loadTerrain({terrainImage, bounds, elevationDecoder, meshMaxError, work
       elevationDecoder
     }
   };
-  if (workerUrl !== null) {
+  if (workerUrl) {
     options.terrain.workerUrl = workerUrl;
   }
   return load(terrainImage, TerrainLoader, options);
