@@ -107,7 +107,7 @@ function renderSubLayers(props) {
       id: `geojson-layer-${tile.x}-${tile.y}-${tile.z}`,
       data: features,
       // Important for z-fighting
-      getPolygonOffset: d => [0, -100],
+      getPolygonOffset: d => [0, -1000],
       lineWidthMinPixels: 5,
       coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
       modelMatrix: getModelMatrix(tile),
