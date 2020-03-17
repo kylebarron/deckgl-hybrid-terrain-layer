@@ -3,11 +3,18 @@ import {COORDINATE_SYSTEM} from '@deck.gl/core';
 import {load} from '@loaders.gl/core';
 import {TerrainLoader} from '@loaders.gl/terrain';
 import {TileLayer} from '@deck.gl/geo-layers';
-import {TERRAIN_IMAGE, NAIP_IMAGE, SURFACE_IMAGE, ELEVATION_DECODER, MAPBOX_SATELLITE} from './util';
+import {
+  TERRAIN_IMAGE,
+  NAIP_IMAGE,
+  SURFACE_IMAGE,
+  ELEVATION_DECODER,
+  MAPBOX_SATELLITE
+} from './util';
 import {GeoJsonLayer} from '@deck.gl/layers';
 import {MVTLoader} from '@loaders.gl/mvt';
 import {Matrix4} from 'math.gl';
 import {snapFeatures} from '@kylebarron/snap-features-to-tin';
+import { parseMapboxStyle, featuresArrayToObject } from "@kylebarron/deckgl-style-spec";
 
 const MESH_MAX_ERROR = 10;
 const DUMMY_DATA = [1];
@@ -19,18 +26,18 @@ function getTerrainUrl({x, y, z}) {
 }
 
 function getTextureUrl({x, y, z}) {
-  return MAPBOX_SATELLITE.replace('{x}', x)
-    .replace('{y}', y)
-    .replace('{z}', z);
-  // if (z >= 12) {
-  //   return NAIP_IMAGE.replace('{x}', x)
-  //     .replace('{y}', y)
-  //     .replace('{z}', z);
-  // }
-  //
-  // return SURFACE_IMAGE.replace('{x}', x)
+  // return MAPBOX_SATELLITE.replace('{x}', x)
   //   .replace('{y}', y)
   //   .replace('{z}', z);
+  if (z >= 12) {
+    return NAIP_IMAGE.replace('{x}', x)
+      .replace('{y}', y)
+      .replace('{z}', z);
+  }
+
+  return SURFACE_IMAGE.replace('{x}', x)
+    .replace('{y}', y)
+    .replace('{z}', z);
 }
 
 function getOpenMapTilesUrl({x, y, z}) {
@@ -85,8 +92,6 @@ async function getTileData({x, y, z}) {
     bounds: [0, 0, 1, 1]
   });
 
-  // const data = await Promise.all([terrain, texture, mvttile]);
-  // return [mesh, data[1], newFeatures];
   return Promise.all([mesh, texture, newFeatures])
 }
 
