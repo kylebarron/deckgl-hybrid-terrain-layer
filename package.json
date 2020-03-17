@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start-local": "webpack-dev-server --env.local --progress --hot --open",
-    "start": "webpack-dev-server --progress --hot --open"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
     "@kylebarron/deckgl-style-spec": "../deckgl-style-spec/",
@@ -12,16 +14,29 @@
     "@loaders.gl/mvt": "^2.1.1",
     "@loaders.gl/terrain": "^2.1.1",
     "deck.gl": "^8.1.0",
-    "react": "^16.3.0",
-    "react-dom": "^16.3.0",
-    "react-map-gl": "^5.0.0"
+    "react-map-gl": "^5.0.0",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-scripts": "3.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.0",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.1"
+    "babel-loader": "^8.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
