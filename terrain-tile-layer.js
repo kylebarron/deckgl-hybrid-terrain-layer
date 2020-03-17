@@ -13,7 +13,7 @@ import {
 import {GeoJsonLayer} from '@deck.gl/layers';
 import {MVTLoader} from '@loaders.gl/mvt';
 import {Matrix4} from 'math.gl';
-import {snapFeatures} from '@kylebarron/snap-features-to-tin';
+import {SnapFeatures} from '@kylebarron/snap-features-to-tin';
 import { parseMapboxStyle, featuresArrayToObject } from "@kylebarron/deckgl-style-spec";
 
 const MESH_MAX_ERROR = 10;
@@ -85,13 +85,12 @@ async function getTileData({x, y, z}) {
     : Promise.resolve(null);
 
   const [mesh, mvtFeatures] = await Promise.all([terrain, mvttile])
-  const newFeatures = snapFeatures({
+  const snap = SnapFeatures({
     indices: mesh.indices.value,
     positions: mesh.attributes.POSITION.value,
-    features: mvtFeatures,
     bounds: [0, 0, 1, 1]
-  });
-
+  })
+  const newFeatures = snap.snapFeatures(mvtFeatures)
   return Promise.all([mesh, texture, newFeatures])
 }
 
