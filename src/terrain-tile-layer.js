@@ -85,7 +85,7 @@ async function getTileData({x, y, z}) {
     : Promise.resolve(null);
 
   const [mesh, mvtFeatures] = await Promise.all([terrain, mvttile])
-  const snap = SnapFeatures({
+  const snap = new SnapFeatures({
     indices: mesh.indices.value,
     positions: mesh.attributes.POSITION.value,
     bounds: [0, 0, 1, 1]

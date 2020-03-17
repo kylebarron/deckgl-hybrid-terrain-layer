@@ -1,6 +1,5 @@
 /* eslint-disable max-statements */
 import React from 'react';
-import {render} from 'react-dom';
 import DeckGL from '@deck.gl/react';
 import {StaticMap} from 'react-map-gl';
 import {TerrainTileLayer} from './terrain-tile-layer';
@@ -31,6 +30,3 @@ export default function App() {
   );
 }
 
-export function renderToDOM(container) {
-  render(<App />, container);
-}
